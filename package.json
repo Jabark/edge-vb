@@ -5,7 +5,7 @@
     "url": "",
     "twitter": ""
   },
-  "version": "0.2.8-pre",
+  "version": "0.0.1",
   "description": "Edge-vb: run VB and node.js code in-process with edge.js",
   "tags" : ["owin", "edge", "net", "clr", "vb", "managed", ".net"],
   "main": "./lib/edge-vb.js",
@@ -16,9 +16,9 @@
   "homepage": "http://tjanczuk.github.com/edge",
   "repository": {
     "type": "git",
-    "url": "git@github.com:tjanczuk/edge-cs.git"
+    "url": "git@github.com:jabark/edge-vb.git"
   },
   "bugs" : {
-    "url" : "http://github.com/tjanczuk/edge-cs/issues"
+    "url" : "http://github.com/jabark/edge-vb/issues"
   }
 }

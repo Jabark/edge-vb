@@ -1,4 +1,5 @@
 Option Strict On
+Option Explicit On
 
 Imports Microsoft.VisualBasic
 Imports System.CodeDom.Compiler

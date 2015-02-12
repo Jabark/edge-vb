@@ -1,18 +1,18 @@
 {
-  "name": "edge-vb",
-  "author": {
-    "name": "Jamie Barker <jaadba@gmail.com>",
-    "url": "",
-    "twitter": ""
-  },
-  "version": "0.0.1",
-  "description": "Edge-vb: run VB and node.js code in-process with edge.js",
-  "tags" : ["owin", "edge", "net", "clr", "vb", "managed", ".net"],
-  "main": "./lib/edge-vb.js",
-  "engines": { "node": ">= 0.8" },
-  "licenses": [ { "type": "Apache", "url": "http://www.apache.org/licenses/LICENSE-2.0" } ],
-  "dependencies": {
-  },
+    "name": "edge-vb",
+    "author": {
+        "name": "Jamie Barker <jaadba@gmail.com>",
+        "url": "",
+        "twitter": ""
+    },
+    "version": "0.0.1",
+    "description": "Edge-vb: run VB and node.js code in-process with edge.js",
+    "tags": [ "owin", "edge", "net", "clr", "vb", "managed", ".net" ],
+    "main": "./lib/edge-vb.js",
+    "engines": { "node": ">= 0.8" },
+    "licenses": [ { "type": "Apache", "url": "http://www.apache.org/licenses/LICENSE-2.0" } ],
+    "dependencies": {
+    },
   "homepage": "http://tjanczuk.github.com/edge",
   "repository": {
     "type": "git",

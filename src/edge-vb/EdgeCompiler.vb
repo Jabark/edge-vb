@@ -1,6 +1,6 @@
 Option Strict On
 
-Imports Microsoft.CSharp
+Imports Microsoft.VisualBasic
 Imports System.CodeDom.Compiler
 Imports System.Collections.Generic
 Imports System.IO
@@ -13,10 +13,10 @@ Imports System.Threading.Tasks
 Public Class EdgeCompiler
 	Shared ReadOnly referenceRegex As New Regex("^[\ \t]*(?:\/{2})?\#r[\ \t]+""([^""]+)""", RegexOptions.Multiline)
 	Shared ReadOnly usingRegex As New Regex("^[\ \t]*(using[\ \t]+[^\ \t]+[\ \t]*\;)", RegexOptions.Multiline)
-	Shared ReadOnly debuggingEnabled As Boolean = Not String.IsNullOrEmpty(Environment.GetEnvironmentVariable("EDGE_CS_DEBUG"))
-	Shared ReadOnly debuggingSelfEnabled As Boolean = Not String.IsNullOrEmpty(Environment.GetEnvironmentVariable("EDGE_CS_DEBUG_SELF"))
-	Shared ReadOnly cacheEnabled As Boolean = Not String.IsNullOrEmpty(Environment.GetEnvironmentVariable("EDGE_CS_CACHE"))
-	Shared referencedAssemblies As New Dictionary(Of String, Dictionary(Of String, Assembly))()
+    Shared ReadOnly debuggingEnabled As Boolean = Not String.IsNullOrEmpty(Environment.GetEnvironmentVariable("EDGE_VB_DEBUG"))
+    Shared ReadOnly debuggingSelfEnabled As Boolean = Not String.IsNullOrEmpty(Environment.GetEnvironmentVariable("EDGE_VB_DEBUG_SELF"))
+    Shared ReadOnly cacheEnabled As Boolean = Not String.IsNullOrEmpty(Environment.GetEnvironmentVariable("EDGE_VB_CACHE"))
+    Shared referencedAssemblies As New Dictionary(Of String, Dictionary(Of String, Assembly))()
 	Shared funcCache As New Dictionary(Of String, Func(Of Object, Task(Of Object)))()
 
 	Shared Sub New()
@@ -39,17 +39,17 @@ Public Class EdgeCompiler
 		Dim fileName As String = Nothing
 		Dim lineNumber As Integer = 1
 
-		' read source from file
-		If source.EndsWith(".cs", StringComparison.InvariantCultureIgnoreCase) OrElse source.EndsWith(".csx", StringComparison.InvariantCultureIgnoreCase) Then
-			' retain fileName for debugging purposes
-			If debuggingEnabled Then
-				fileName = source
-			End If
+        ' read source from file
+        If source.EndsWith(".vb", StringComparison.InvariantCultureIgnoreCase) OrElse source.EndsWith(".vbx", StringComparison.InvariantCultureIgnoreCase) Then
+            ' retain fileName for debugging purposes
+            If debuggingEnabled Then
+                fileName = source
+            End If
 
-			source = File.ReadAllText(source)
-		End If
+            source = File.ReadAllText(source)
+        End If
 
-		If debuggingSelfEnabled Then
+        If debuggingSelfEnabled Then
 			Console.WriteLine("Func cache size: " & funcCache.Count)
 		End If
 
@@ -112,8 +112,8 @@ Public Class EdgeCompiler
 			source = usings & "using System;" & vbLf & "using System.Threading.Tasks;" & vbLf & "public class Startup {" & vbLf & "    public async Task<object> Invoke(object ___input) {" & vbLf & lineDirective & "        Func<object, Task<object>> func = " & source & ";" & vbLf & "#line hidden" & vbLf & "        return await func(___input);" & vbLf & "    }" & vbLf & "}"
 
 			If debuggingSelfEnabled Then
-				Console.WriteLine("Edge-cs trying to compile async lambda expression:")
-				Console.WriteLine(source)
+                Console.WriteLine("Edge-vb trying to compile async lambda expression:")
+                Console.WriteLine(source)
 			End If
 
 			If Not TryCompile(source, references, errorsLambda, assembly__1) Then
@@ -161,19 +161,19 @@ End Function
 		Dim options As New Dictionary(Of String, String)() From { _
 			{"CompilerVersion", "v4.0"} _
 		}
-		Dim csc As New CSharpCodeProvider(options)
-		Dim parameters As New CompilerParameters()
-		parameters.GenerateInMemory = True
-		parameters.IncludeDebugInformation = debuggingEnabled
-		parameters.ReferencedAssemblies.AddRange(references.ToArray())
-		parameters.ReferencedAssemblies.Add("System.dll")
-		parameters.ReferencedAssemblies.Add("System.Core.dll")
-		parameters.ReferencedAssemblies.Add("Microsoft.CSharp.dll")
-		If Not String.IsNullOrEmpty(Environment.GetEnvironmentVariable("EDGE_CS_TEMP_DIR")) Then
-			parameters.TempFiles = New TempFileCollection(Environment.GetEnvironmentVariable("EDGE_CS_TEMP_DIR"))
-		End If
-		Dim results As CompilerResults = csc.CompileAssemblyFromSource(parameters, source)
-		If results.Errors.HasErrors Then
+        Dim vbc As New VBCodeProvider(options)
+        Dim parameters As New CompilerParameters()
+        parameters.GenerateInMemory = True
+        parameters.IncludeDebugInformation = debuggingEnabled
+        parameters.ReferencedAssemblies.AddRange(references.ToArray())
+        parameters.ReferencedAssemblies.Add("System.dll")
+        parameters.ReferencedAssemblies.Add("System.Core.dll")
+        parameters.ReferencedAssemblies.Add("Microsoft.VisualBasic.dll")
+        If Not String.IsNullOrEmpty(Environment.GetEnvironmentVariable("EDGE_VB_TEMP_DIR")) Then
+            parameters.TempFiles = New TempFileCollection(Environment.GetEnvironmentVariable("EDGE_VB_TEMP_DIR"))
+        End If
+        Dim results As CompilerResults = vbc.CompileAssemblyFromSource(parameters, source)
+        If results.Errors.HasErrors Then
 			For Each [error] As CompilerError In results.Errors
 				If errors Is Nothing Then
 					errors = [error].ToString()

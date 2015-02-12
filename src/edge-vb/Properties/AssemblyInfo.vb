@@ -5,12 +5,12 @@ Imports System.Runtime.InteropServices
 ' General Information about an assembly is controlled through the following 
 ' set of attributes. Change these attribute values to modify the information
 ' associated with an assembly.
-<Assembly: AssemblyTitle("edge-cs")>
+<Assembly: AssemblyTitle("edge-vb")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyConfiguration("")>
 <Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("edge-cs")>
-<Assembly: AssemblyCopyright("Copyright ©  2013")>
+<Assembly: AssemblyProduct("edge-vb")>
+<Assembly: AssemblyCopyright("Copyright ©  2015")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: AssemblyCulture("")>
 

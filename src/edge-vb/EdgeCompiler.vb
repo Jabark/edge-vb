@@ -27,7 +27,7 @@ Public Class EdgeCompiler
 
     Private Shared Function CurrentDomain_AssemblyResolve(sender As Object, args As ResolveEventArgs) As Assembly
         Dim result As Assembly = Nothing
-        Dim requesting As New Dictionary(Of String, Assembly)
+        Dim requesting As Dictionary(Of String, Assembly)
         If referencedAssemblies.TryGetValue(args.RequestingAssembly.FullName, requesting) Then
             requesting.TryGetValue(args.Name, result)
         End If
@@ -112,7 +112,16 @@ Public Class EdgeCompiler
 
             Dim errorsLambda As String = String.Empty
 
-            source = usings & "using System;" & vbLf & "using System.Threading.Tasks;" & vbLf & "public class Startup {" & vbLf & "    public async Task<object> Invoke(object ___input) {" & vbLf & lineDirective & "        Func<object, Task<object>> func = " & source & ";" & vbLf & "#line hidden" & vbLf & "        return await func(___input);" & vbLf & "    }" & vbLf & "}"
+            source = usings & "Imports System" & vbLf &
+                              "Imports System.Threading.Tasks" & vbLf &
+                              "Public Class Startup" & vbLf &
+                              "    Public Function Invoke(___input As Object)" & vbLf &
+                              lineDirective &
+                              "        Dim func As Func(Of Object, Task(Of Object)) = " & source & vbLf &
+                              "#line hidden" & vbLf &
+                              "        Return Await func(___input)" & vbLf &
+                              "    End Function" & vbLf &
+                              "End Class"
 
             If debuggingSelfEnabled Then
                 Console.WriteLine("Edge-vb trying to compile async lambda expression:")

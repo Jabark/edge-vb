@@ -5,6 +5,5 @@ C:\Users\jbarker\Documents\edge-vb\src\edge-vb\obj\Debug\edge-vb.dll
 C:\Users\jbarker\Documents\edge-vb\src\edge-vb\obj\Debug\edge-vb.pdb
 C:\Users\jbarker\Documents\GitHub\edge-vb\src\edge-vb\bin\Debug\edge-vb.dll
 C:\Users\jbarker\Documents\GitHub\edge-vb\src\edge-vb\bin\Debug\edge-vb.pdb
-C:\Users\jbarker\Documents\GitHub\edge-vb\src\edge-vb\obj\Debug\edge-vb.vbprojResolveAssemblyReference.cache
 C:\Users\jbarker\Documents\GitHub\edge-vb\src\edge-vb\obj\Debug\edge-vb.dll
 C:\Users\jbarker\Documents\GitHub\edge-vb\src\edge-vb\obj\Debug\edge-vb.pdb

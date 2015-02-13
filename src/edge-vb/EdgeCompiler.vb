@@ -115,10 +115,10 @@ Public Class EdgeCompiler
             source = usings & "Imports System" & vbLf &
                               "Imports System.Threading.Tasks" & vbLf &
                               "Public Class Startup" & vbLf &
-                              "    Public Function Invoke(___input As Object)" & vbLf &
+                              "    Public Async Function Invoke(___input As Object) As Task(Of Object)" & vbLf &
                               lineDirective &
                               "        Dim func As Func(Of Object, Task(Of Object)) = " & source & vbLf &
-                              "#line hidden" & vbLf &
+                              "        #Line hidden" & vbLf &
                               "        Return Await func(___input)" & vbLf &
                               "    End Function" & vbLf &
                               "End Class"

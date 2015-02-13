@@ -6,7 +6,8 @@
     <ProjectGuid>{76A14003-3075-479C-A2D7-2843D472BC28}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>edge_vb</RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <AssemblyName>edge-vb</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

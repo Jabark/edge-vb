@@ -5,7 +5,7 @@
     "url": "",
     "twitter": ""
   },
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Edge-vb: run VB and node.js code in-process with edge.js",
   "tags": [
     "owin",

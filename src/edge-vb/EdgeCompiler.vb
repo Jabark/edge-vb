@@ -91,7 +91,7 @@ Public Class EdgeCompiler
             End If
 
             If Not String.IsNullOrEmpty(fileName) Then
-                lineDirective = String.Format("#line {0} ""{1}""" & vbLf, lineNumber, fileName)
+                lineDirective = String.Format("#Line {0} ""{1}""" & vbLf, lineNumber, fileName)
             End If
         End If
 
@@ -115,18 +115,17 @@ Public Class EdgeCompiler
             source = usings & "Imports System" & vbLf &
                               "Imports System.Threading.Tasks" & vbLf &
                               "Public Class Startup" & vbLf &
-                              "    Public Async Function Invoke(___input As Object) As Task(Of Object)" & vbLf &
-                              lineDirective &
-                              "        Dim func As Func(Of Object, Task(Of Object)) = " & source & vbLf &
-                              "        #Line hidden" & vbLf &
-                              "        Return Await func(___input)" & vbLf &
-                              "    End Function" & vbLf &
+                              "     Public Async Function Invoke(___input As Object) As Task(Of Object)" & vbLf & 'lineDirective & vbLf &
+                              "         Dim func As Func(Of Object, Task(Of Object)) = " & source & vbLf & '#Line hidden" & vbLf &
+                              "         Return Await func(___input)" & vbLf &
+                              "     End Function" & vbLf &
                               "End Class"
 
             If debuggingSelfEnabled Then
                 Console.WriteLine("Edge-vb trying to compile async lambda expression:")
                 Console.WriteLine(source)
             End If
+
 
             If Not TryCompile(source, references, errorsLambda, assembly__1) Then
                 Throw New InvalidOperationException("Unable to compile VB code." & vbLf & "----> Errors when compiling as a CLR library:" & vbLf & errorsClass & vbLf & "----> Errors when compiling as a CLR async lambda expression:" & vbLf & errorsLambda)
